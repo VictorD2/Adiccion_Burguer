@@ -1,0 +1,286 @@
+{{> navigation}}
+
+<div class="content-wrapper">
+    <section class="content">
+        {{!-- Cabecera --}}
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h4 class="m-0 text-xl "><i class="fas fa-user"></i> Gestionar Usuarios</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        {{> mensajes}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{!-- /Cabecera --}}
+
+        {{!-- Options --}}
+        <div class="navbar narvbar-expand navbar-white narvbar-light">
+            <ul class="nav nav-fill flex-row btn-block" id="opciones">
+                <li class="nav-item p-2">
+                    <button data-toggle="modal" data-target="#modalCreateUser" class="btn btn-purple btn-block"
+                        data-toggle="modal" data-target="#modalCreate">
+                        <i class="fas fa-user-plus"></i> Crear Usuario
+                    </button>
+                </li>
+
+                <li class="nav-item p-2">
+                    <form id="search" action="/search" method="POST">
+                        <div class="form-group form-check-inline mb-0">
+                            <input name="search" class="form-control" placeholder="Consultar Usuario">
+                            <button class="btn btn-purple mx-auto">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+        {{!-- /Options --}}
+
+        {{!-- Tabla --}}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title"><i class="fas fa-user-friends"></i> Lista de Usuarios</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table-striped">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th><i class="fas fa-phone"></i> Teléfono</th>
+                            <th><i class="fas fa-credit-card"></i> DNI</th>
+                            <th>Cargo</th>
+                            <th><i class="fas fa-key"></i> Contraseña</th>
+                            <th class="text-center"><i class="fas fa-edit"></i> Editar</th>
+                            <th class="text-center"><i class="fas fa-trash-alt"></i> Eliminar</th>
+                        </thead>
+                        <tbody>
+                            {{#each usuarios}}
+                            <tr>
+                                <td class="fila{{Id_Empleado}}">{{Nombre}}</td>
+                                <td class="fila{{Id_Empleado}}">{{Apellido}}</td>
+                                <td class="fila{{Id_Empleado}}">{{Telefono}}</td>
+                                <td class="fila{{Id_Empleado}}">{{Id_Empleado}}</td>
+                                <td id="cargoTabla{{Id_Empleado}}"> {{Nombre_Cargo}}</td>
+                                <td> ******* </td>
+
+                                {{!-- Edit --}}
+                                <td class="text-center">
+                                    <a type="button" data-toggle="modal" data-target="#modalEditUser"
+                                        class="btn btn-secondary editUserButton {{Id_Empleado}}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+
+                                {{!-- Delete --}}
+                                <td class="text-center">
+                                    <a type="button" data-toggle="modal" data-target="#modalDeleteUser"
+                                        class="btn btn-danger deleteUserButton {{Id_Empleado}}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {{!-- /Tabla --}}
+
+
+    </section>
+    {{!-- /Cuerpo --}}
+
+</div>
+
+
+{{!-- Ventanas Modales --}}
+
+{{!-- Crear --}}
+<div>
+    <div class="modal fade" id="modalCreateUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-white morado mb-3">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Crear Usuario
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span style="color: white;" aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body row">
+                    <form id="form" method="POST" class="row" action="/CreateUser">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input required type="text" class="form-control passw" value="" name="nombre"
+                                    id="nombre">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="apellido">Apellidos</label>
+                                <input required type="text" class="form-control" value="" name="apellido" id="apellido">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="rango">Cargo</label>
+                                <select name="cargo" id="cargo" class="form-control">
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Cocinero</option>
+                                    <option value="3">Repartidor</option>
+                                    <option value="4">Despachador</option>
+                                    <option value="5">Almacen</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input required type="number" class="form-control" value="" name="telefono"
+                                    id="telefono">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="dni">DNI</label>
+                                <input required type="text" class="form-control passw" value="" name="dni" id="dni">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input required type="text" class="form-control" value="" name="password"
+                                    id="passwordCreate">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mt-5">
+                            <div class="container text-center">
+                                <div class="form-group">
+                                    <button class="btn btn-purple" type="submit">
+                                        <i class="fa fa-user-plus"></i> Crear Usuario
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- /Crear --}}
+
+{{!-- Editar --}}
+<div>
+    <div class="modal fade" id="modalEditUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-white bg-gradient-secondary mb-3">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Editar Usuario
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span style="color: white;" aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body row">
+                    <form id="formEdit" method="POST" action="/Usuarios/Edit" class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input required type="text" class="form-control editInput" value="" name="nombre">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="apellido">Apellidos</label>
+                                <input required type="text" class="form-control editInput" value="" name="apellido">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="rango">Cargo</label>
+                                <select name="cargo" id="comboBoxCargo" class="form-control">
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Cocinero</option>
+                                    <option value="3">Repartidor</option>
+                                    <option value="4">Despachador</option>
+                                    <option value="5">Almacen</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input required type="number" class="form-control editInput" value="" name="telefono">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="dni">DNI</label>
+                                <input readonly type="text" class="form-control editInput" value="" name="dni">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input required type="text" class="form-control" value="" name="password">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mt-5">
+                            <div class="container text-center">
+                                <div class="form-group">
+                                    <button id="editButton" type="submit" class="btn btn-secondary">
+                                        <i class="fa fa-user-plus"></i> Editar Usuario
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- /Editar --}}
+
+{{!-- Eliminar --}}
+<div>
+    <div class="modal fade" id="modalDeleteUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-white bg-gradient-danger mb-3">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span style="color: white;" aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body row">
+                        <div class="form-group col-sm-12">
+                            <label class="col-form-label">¿Seguro que desea eliminar el
+                                usuario?</label>
+                        </div>
+                        <div class="modal-footer" style="text-align: center;">
+                            <a href="" type="button" id="yesUserDelete" data-dismiss="modal" aria-label="Close"
+                                type="button" class="btn btn-lg bg-gradient-danger">Sí</a>
+                            <button id="not" data-dismiss="modal" aria-label="Close" type="button"
+                                class="btn btn-lg bg-gradient-secondary">No</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- /Eliminar --}}
+
+{{!-- /Ventanas Modales --}}

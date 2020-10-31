@@ -1,0 +1,214 @@
+{{> navigation}}
+
+
+<div class="content-wrapper">
+    <section class="content">
+        {{!-- Header --}}
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h4 class="m-0 titulo text-xl"><i class="fas fa-book-reader"></i> Gestionar Carta</h4>
+
+                    </div>
+                    <div class="col-sm-6">
+                        {{> mensajes}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{!-- /Header --}}
+
+        {{!-- Content --}}
+
+        {{!-- Options --}}
+        <div class="navbar narvbar-expand navbar-white narvbar-light">
+            <ul class="nav nav-fill flex-row btn-block" id="opciones">
+                <li class="nav-item p-2">
+                    <select name="selector" class="form-control">
+                        <option value="">Hamburguesas</option>
+                        <option value="">Bebidas</option>
+                        <option value="">Agregados</option>
+                    </select>
+                </li>
+                <li class="nav-item p-2">
+                    <button class="btn btn-purple btn-block" data-toggle="modal" data-target="#modalCreate">
+                        <i class="fas fa-plus-square"></i> Agregar Producto
+                    </button>
+                </li>
+                <li class="nav-item p-2">
+                    <button class="btn btn-purple btn-block">
+                        <i class="fas fa-list"></i> Pedidos
+                    </button>
+                </li>
+                <li class="nav-item p-2">
+                    <button class="btn btn-purple btn-block">
+                        <i class="fas fa-list"></i> Insumos
+                    </button>
+                </li>
+
+                <li class="nav-item p-2">
+                    <form id="search" action="/search" method="POST">
+                        <div class="form-group form-check-inline mb-0">
+                            <input name="search" class="form-control" placeholder="Consultar Producto">
+                            <button class="btn btn-purple mx-auto">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+        {{!-- /Options --}}
+
+        {{!-- Table --}}
+        <div class="card mt-4">
+
+            <div class="card-header">
+                <h5 class="card-title"><i class="fas fa-hamburger"></i> Hamburguesas</h5>
+            </div>
+
+            <div class="card-body">
+                <div class="table table-responsive table-striped">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th><i class="fas fa-dollar-sign"></i> Precio</th>
+                                <th><i class="fas fa-align-justify"></i> Detalles</th>
+                                <th class="text-center"><i class="fas fa-edit"></i> Editar</th>
+                                <th class="text-center"><i class="fas fa-trash-alt"></i> Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each productos}}
+                            <tr>
+                                <td>{{Id_Producto}}</td>
+                                <form method="POST" id="form{{Id_Producto}}" action="/Carta/edit/{{Id_Producto}}">
+                                    <td><input value="{{Nombre}}" name="Nombre" type="text"
+                                            class="form-control {{Id_Producto}}" disabled="true"></td>
+                                    <td><input value="{{Precio}}" name="Precio" type="text"
+                                            class="form-control {{Id_Producto}}" disabled="true"></td>
+                                    <td><input value="{{Descripcion}}" name="Descripcion" type="text"
+                                            class="form-control {{Id_Producto}}" disabled="true"></td>
+
+                                    {{!-- Edit --}}
+                                    <td id="formb{{Id_Producto}}" style="text-align: center;">
+                                        <a class="btn btn-secondary bg-gradient-secondary editProducto {{Id_Producto}}"
+                                            type="button">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </form>
+
+                                {{!-- Delete --}}
+                                <td style="text-align: center;">
+                                    <a data-toggle="modal" data-target="#modalDelete"
+                                        class="btn btn-danger bg-gradient-danger delete {{Id_Producto}}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {{!-- /Table --}}
+
+        {{!-- /Content --}}
+    </section>
+</div>
+
+{{!-- Ventanas Modales --}}
+
+{{!-- Crear Producto --}}
+<!-- Crear -->
+<div>
+    <div class="modal fade" id="modalCreate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-white bg-gradient-purple mb-3" style="background:#731260 !important">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Agregar Producto
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span style="color: white;" aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form method="POST" action="/Carta/create">
+                    <div class="modal-body row">
+                        <div class="form-group col-sm-12" id="nombreProducto">
+                            <label for="recipient-name" class="col-form-label">Nombre</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                </div>
+                                <input required name="Nombre" type="text" class="form-control" id="recipient-name"
+                                    placeholder="Nombre">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12" id="precioProducto">
+                            <label for="recipient-name" class="col-form-label">Precio</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                </div>
+                                <input required name="Precio" type="text" class="form-control" id="recipient-name"
+                                    placeholder="Precio">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12" id="detallesProducto">
+                            <label for="recipient-name" class="col-form-label">Detalles</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-align-justify"></i></span>
+                                </div>
+                                <textarea required name="Descripcion" class="form-control" rows="3"
+                                    placeholder="Detalles"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align: center;">
+                            <button style="background:#731260 !important" type="submit"
+                                class="btn btn-succes bg-gradient-success">Aceptar</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- /Crear Producto --}}
+
+<!-- Borrar -->
+<div>
+    {{!-- Delete --}}
+    <div class="modal fade" id="modalDelete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-white bg-gradient-danger mb-3">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span style="color: white;" aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body row">
+                        <div class="form-group col-sm-12">
+                            <label class="col-form-label">¿Seguro que desea eliminar el
+                                producto?</label>
+                        </div>
+                        <div class="modal-footer" style="text-align: center;">
+                            <a href="" type="button" id="yes" data-dismiss="modal" aria-label="Close" type="button"
+                                class="btn btn-lg bg-gradient-danger">Sí</a>
+                            <button id="not" data-dismiss="modal" aria-label="Close" type="button"
+                                class="btn btn-lg bg-gradient-secondary">No</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{!-- /Delete --}}
+</div>
+
+{{!-- /Ventanas Modales --}}

@@ -1,0 +1,47 @@
+#Home {
+    color: black;
+}
+
+#Home :hover {
+    color: blue;
+}
+
+.main-footer {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 1032;
+}
+
+#movil_button {
+    display: none;
+}
+
+.btn-purple {
+    background: #731260 !important;
+    color: #fff !important;
+}
+
+.morado {
+    background: #731260 !important;
+}
+
+@media only screen and (max-width:768px) {
+    #movil_button {
+        display: inline-block;
+        color: #fff;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width:576px) {
+    #movil_button {
+        display: inline-block;
+        color: #fff;
+        text-align: center;
+    }
+    #opciones {
+        flex-direction: column !important;
+    }
+}

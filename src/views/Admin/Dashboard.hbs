@@ -1,0 +1,114 @@
+<section class="container card morado mt-5">
+    <div class="card-header">
+        <h3 class="card-title text-white">
+            PANEL DE CONTROL
+             {{> mensajes}}
+        </h3>
+    </div>
+    <div class="row card-body">
+        <div class="col-sm-4 text-center">
+            {{#if Cargo.admin}}
+            <img src="/dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
+            {{/if}}
+            {{#if Cargo.cocinero}}
+            <img src="/dist/img/avatar1.png" class="img-circle elevation-2" alt="User Image">
+            {{/if}}
+            {{#if Cargo.repartidor}}
+            <img src="/dist/img/avatar2.png" class="img-circle elevation-2" alt="User Image">
+            {{/if}}
+            {{#if Cargo.despachador}}
+            <img src="/dist/img/avatar3.png" class="img-circle elevation-2" alt="User Image">
+            {{/if}}
+            {{#if Cargo.almacen}}
+            <img src="/dist/img/avatar4.png" class="img-circle elevation-2" alt="User Image">
+            {{/if}}
+            <div class="info">
+                <p class="d-block mt-4 text-white text-lg">{{usuario.Nombre_Cargo}}</p>
+            </div>
+        </div>
+
+        <div class="col-sm-8 pt-4 row">
+
+            {{!-- Administrador --}}
+            {{#if Cargo.admin}}
+            <div class="col-sm-4">
+                <a type="button" class="btn btn-purple btn-block" href="/Carta">
+                    <i class="nav-icon fas fa-book-reader text-xl"></i>
+                    <p class="text-lg">Gestionar Carta </p>
+                </a>
+            </div>
+
+            <div class="col-sm-4">
+                <a type="button" class="btn btn-purple btn-block" href="/Usuarios">
+                    <i class="nav-icon fas fa-user text-xl"></i>
+                    <p class="text-lg">Gestionar Usuarios</p>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a type="button" class="btn btn-purple btn-block" href="/Usuarios">
+                    <i class="nav-icon fas fa-user text-xl"></i>
+                    <p class="text-lg">Gestionar Categoria</p>
+                </a>
+            </div>
+            {{/if}}
+            {{!-- /Administrador --}}
+
+            {{!-- Cocinero --}}
+            {{#if Cargo.cocinero}}
+            <div class="col-sm-4">
+                <a type="button" class="btn btn-purple btn-block" href="/Pedido">
+                    <i class="nav-icon fas fa-book-reader text-xl"></i>
+                    <p class="text-lg">Atender Pedido</p>
+                </a>
+            </div>
+            {{/if}}
+            {{!-- /Cocinero --}}
+
+            {{!-- Repartidor --}}
+            {{#if Cargo.repartidor}}
+            <div class="col-sm-4">
+                <a type="button" class="btn btn-purple btn-block" href="/Pago">
+                    <i class="nav-icon fas fa-book-reader text-xl"></i>
+                    <p class="text-lg">Registrar Pago</p>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a type="button" class="btn btn-purple btn-block" href="/Delivery">
+                    <i class="nav-icon fas fa-th-list text-xl"></i>
+                    <p class="text-lg">Pedidos Delivery</p>
+                </a>
+            </div>
+            {{/if}}
+            {{!-- /Repartidor --}}
+
+            {{!-- Despachador --}}
+            {{#if Cargo.despachador}}
+            <div class="col-sm-4">
+                <a type="button" class="btn btn-purple btn-block" href="/Despacho">
+                    <i class="nav-icon fas fa-book-reader text-xl"></i>
+                    <p class="text-lg">Pedidos Despacho</p>
+                </a>
+            </div>
+            {{/if}}
+            {{!-- /Despachador --}}
+
+            {{!-- Almacen --}}
+            {{#if Cargo.almacen}}
+            <div class="col-sm-4">
+                <a type="button" class="btn btn-purple btn-block" href="/Proveedor">
+                    <i class="nav-icon fas fa-book-reader text-xl"></i>
+                    <p class="text-lg">Registrar Pedido Proveedor</p>
+                </a>
+            </div>
+            {{/if}}
+            {{!-- /Almacen --}}
+
+            <div class="col-sm-4">
+                <a type="button" class="btn btn-purple btn-block" href="/Logout">
+                    <i class="nav-icon fas fa-door-open text-xl"></i>
+                    <p class="text-lg">Cerrar Sesión</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

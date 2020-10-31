@@ -1,0 +1,65 @@
+<div class="login-page" style="min-height: 512.391px;background:#731260;">
+    <div class="row">
+        <div class="col-sm-5" style="text-align:center;">
+            <img src="/img/logo.png" class="img-fluid" style="width:80%;" alt="">
+        </div>
+        <div class="col-sm-6 mt-5">
+            <div class="card">
+                {{#if success}}
+
+                <div class="mx-auto">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{success}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+                {{/if}}
+                 {{#if failure}}
+
+                <div class="mx-auto">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{failure}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+                {{/if}}
+                <div class="card-header" style="text-align: center;">
+                    <a href="/" class="d-inline-block text-lg text-center"
+                        style="color:#000;margin-bottom: 20px;"><b>Adicción</b> BURGER</a>
+                </div>
+                <form action="/Login" method="POST">
+                    <div class="card-body">
+
+                        <div class="input-group mb-3">
+                            <input required name="user" type="text" class="form-control" placeholder="Usuario">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input required name="password" type="password" class="form-control" placeholder="Contraseña">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button style="background:#FFCC29 !important;color:#000" class="btn btn-block"> <i
+                                class="fas fa-door-open"></i> Iniciar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
